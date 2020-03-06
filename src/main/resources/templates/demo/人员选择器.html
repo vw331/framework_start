@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{/common/_empty.html}">
+<head>
+    <title>人员选择器</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-default m-t-xs">
+                    <div class="panel-heading">当前部门</div>
+                    <div class="panel-body" style="height: calc(100vh - 120px)">
+                        <div id="deptTree"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="ibox m-t-xs" style="height: calc(100vh - 75px)">
+                    <table class="table" id="table"></table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-right">
+                <span data-person-count class="text-success"></span>
+            </div>
+            <div class="col-sm-6 text-left">
+                <button class="btn btn-success w-120" data-btn-insert>添加人员</button>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        $(function(){
+
+            var $tree = $('#deptTree')
+            var $table = $('#table')
+            var allselections = {
+                data: [],
+                add: function(arg){
+                    if( $.type(arg) == 'object'){
+                        this.data  = [ ...this.data, arg ]
+                    }
+                    if( $.type(arg) == 'array'){
+                        this.data = [ ...this.data, ...arg ]
+                    }
+                    this.data = _.unionBy(this.data, 'pkId')
+                    this.count()
+                },
+                delete: function(arg){
+                    var ids = []
+                    if( $.type(arg) == 'object'){
+                        ids.push(arg.pkId)
+                    }
+                    if( $.type(arg) == 'array'){
+                        ids = arg.map( item => item.pkId )
+                    }
+
+                    this.data = this.data.filter(item => !ids.includes(item.pkId))
+                    this.count()
+                },
+                count: function(){
+
+                    $('[data-person-count]').text( this.data.length ? `已选择${this.data.length}人` : '' )
+
+                }
+            }
+
+            $('[data-btn-insert]').on('click', function(){
+
+                if(window.parent){
+                    window.parent.postMessage( allselections.data , window.parent.location.href )
+                }
+
+            })
+
+            $tree.jstree({ 
+                core: { "check_callback": true,
+                    data: { 
+                        url: ctxPath + '/mock/tree.json',
+                        dataType: 'json',
+                        data: function(node) {
+                            return {
+                                 "id": 0
+                            };
+                        },
+                        dataFilter: function(data, type) {  data = JSON.parse(data).data
+                            var result = (function treeformat(list) {
+                                return list.map(function(item) {
+                                    var children = item.children.length ? treeformat(item.children) : []
+                                    return { 
+                                        id: item.pkId,
+                                        text: item.jgmc,
+                                        state: {
+                                             opened: false,
+                                            selected: false
+                                        },
+                                        children: children
+                                    }
+                                })
+                            })(data);
+                            return JSON.stringify(result)
+                        }
+                    }
+                },
+                checkbox: {  "keep_selected_style": false },
+                //plugins: ["checkbox", "wholerow"]
+            }) 
+                .on('selected.jstree', function(data){
+
+                    console.log(data)
+
+                })
+              /*  .on("changed.jstree", function(e, data) {
+                        var tree = $tree.jstree()
+                        var ids = tree.get_checked().concat(tree.get_undetermined()) 
+                        $form.find('[name="authIds"]').val(ids.join(','))
+                    }) 
+                .on('loaded.jstree', function() {
+                        var tree = $tree.jstree()
+                        var ids = tree.get_checked().concat(tree.get_undetermined()) 
+                        $form.find('[name="authIds"]').val(ids.join(','))
+                })
+                */
+
+
+            $table.bootstrapTable({
+                url: ctxPath + '/mock/user.json',
+                classes: 'table table-bordered table-striped talbe-hover',
+                queryParams: {},
+                locale: "zh-CN",
+                height: $("#table").parent().height(),
+                responseHandler(res) {
+                    return res.data;
+                },
+                clickToSelect: true,
+                columns: [{
+                        checkbox: true
+                    },
+                    {
+                        title: "部门",
+                        field: 'jgmc'
+                    },{
+                        title: "姓名",
+                        field: "xm"
+                    },{
+                        title: "手机号",
+                        field: "phone"
+                    },{
+                        title: "性别",
+                        field: "xb_cdd"
+                    }
+                ],
+                onCheck: function(row){
+                    allselections.add(row)
+                },
+                onUncheck: function(row){
+                    allselections.delete(row)
+                },
+                onCheckAll: function(rows){
+                    allselections.add(rows)
+                },
+                onUncheckAll: function(rows){
+                    console.log( rows )
+                    allselections.delete(rows)
+                }
+            })
+
+        })
+    </script>
+
+</th:block>
+</body>
+</html>

@@ -1,0 +1,8 @@
+
+server:
+  port: 8098
+spring:
+  thymeleaf:
+    enabled: true
+    cache: false
+    encoding: UTF-8

@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{/common/_layout.html}">
+<head>
+</head>
+<body>
+<th:block layout:fragment="content">
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+
+            <div class="ibox border-bottom m-b-xs">
+
+                <div class="ibox-content ">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button class="btn btn-white">导出</button>
+                        </div>
+                        <div class="col-md-10">
+                            <form name="quickSearch" class="form-inline pull-right">
+                                <div class="input-group w-200">
+                                    <select name="num" id="" class="form-control">
+                                        <option value="">--选择批次号--</option>
+                                        <option value="">1</option>
+                                    </select>
+                                </div>
+                                <div class="input-group w-300">
+                                    <input type="text" class="form-control" name="key" placeholder="用户查询">
+                                    <span class="input-group-btn">
+                                       <button class="btn btn-success" type="submit">查询</button>
+                                     </span>
+                                </div>
+                                <button class="btn btn-white collapsed" data-toggle="collapse" href="#collapse" aria-expanded="false">更多查询 <i class="fa fa-caret-down"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="m-t-md collapse" id="collapse" aria-expanded="false" style="height: 0px;">
+                        <div class="well m-b-none">
+                            <form name="moreSearch" class="">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">调度单号</label>
+                                            <input type="text" class="form-control" name="a">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">订单号</label>
+                                            <input type="text" class="form-control" name="b">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">状态</label>
+                                            <select data-select-chosen="" name="orderBillDomain.status" class="form-control" style="display: none;">
+                                                <option value="">----</option><option value="O">打开</option><option value="A">生效</option><option value="C">取消</option><option value="W">车辆到库</option><option value="E">提货完成</option><option value="L">装车完成</option><option value="T">在途</option><option value="D">已运抵</option><option value="G">已签收</option><option value="R">已回单</option>
+                                            </select><div class="chosen-container chosen-container-single" style="width: 165px;" title=""><a class="chosen-single" tabindex="-1"><span>----</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off"></div><ul class="chosen-results"></ul></div></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">客户信息</label>
+                                            <input type="text" class="form-control" name="orderBillDomain.customer_name">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">收货人</label>
+                                            <input type="text" name="orderBillDomain.consignee" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">收货人电话</label>
+                                            <input type="text" name="orderBillDomain.consignee_phone" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">操作日期</label>
+                                            <input type="text" name="dateRange" class="form-control" data-time-daterangepicker="">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <button class="btn btn-success" type="submit">查询</button> &nbsp;&nbsp;
+                                        <button class="btn btn-default" type="reset">重置</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ibox border-bottom">
+                <div class="ibox-content">
+                    <table id="table"></table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+    <script>
+        $(function(){
+
+            var query_params = {}
+
+            $("[name=quickSearch]").on('submit', function(){
+
+                $(document).trigger('table.reload')
+                return false
+
+            })
+
+            $("#table").bootstrapTable({
+                url: ctxPath + '/mock/data.json',
+                classes: 'table table-no-bordered table-striped talbe-hover',
+                sidePagination: 'server',
+                pagination: true,
+                locale: "zh-CN",
+                pageNumber: 1,
+                queryParams(params) {
+                    console.log(params)
+                    return Object.assign({
+                        page: params.offset/params.limit+1,
+                        limit: params.limit,
+                    }, query_params)
+                },
+                responseHandler(res) {
+                    return res.data;
+                },
+                columns: [
+                    {
+                        title: "批次号",
+                        field: 'code'
+                    },{
+                        title: "量表",
+                        field: "table",
+                        formatter: function(value, row, index){
+                            return `<a href="javascript:;">${value}</a>`
+                        }
+                    },{
+                        title: "开始时间",
+                        field: "start_date"
+                    },{
+                        title: "结束时间",
+                        field: "end_date"
+                    },{
+                        title: "负责人",
+                        field: "person"
+                    },{
+                        title: "参与人数",
+                        field: "count",
+                        formatter: function(value, row, index){
+                            return `<a href="javascript:;">${value}</a>`
+                        }
+                    },{
+                        title: "状态",
+                        field: "state_info"
+                    },{
+                        title: "操作",
+                        formatter: function(){
+                            return `<a href="javascript">暂停</a>
+                                    <a href="javascript">删除</a>`
+                        }
+                    }
+                ]
+            })
+
+            $(document).on('table.reload', function(){
+
+                query_params = $(this).serializeObject()
+                $("#table").bootstrapTable('refreshOptions', { pageNumber: 1 })
+
+            })
+
+        })
+    </script>
+</th:block>
+</body>
+</html>

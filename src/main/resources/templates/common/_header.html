@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="row" th:fragment="header">
+        <nav class="navbar  navbar-costom navbar-static-top" role="navigation">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <a href="#" class="navbar-brand">心理矫治评估</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a aria-expanded="false" role="button" href="#"> 测评 </a>
+                    </li>
+                    <li>
+                        <a aria-expanded="false" role="button" href="#"> 题库 </a>
+                    </li>
+                    <li class="">
+                        <a aria-expanded="false" role="button" href="#"> 分析 </a>
+                    </li>
+                    <li class="">
+                        <a aria-expanded="false" role="button" href="#"> 管理 </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-top-links navbar-right text-right">
+                    <li>
+                        <a href="javascript:;" data-logout>
+                            <i class="fa fa-sign-out"></i> 退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+</body>
+</html>

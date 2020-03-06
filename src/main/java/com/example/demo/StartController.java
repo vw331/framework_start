@@ -15,7 +15,7 @@ public class StartController extends Thread{
 
     @GetMapping("/**")
     public  String common(HttpServletRequest request, Model model){
-        return request.getServletPath().replace("/demo", "");
+        return request.getServletPath().replace("/demo/", "");
     }
 
     @PostMapping("/api/post")

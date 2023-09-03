@@ -10,12 +10,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/demo")
+@RequestMapping()
 public class StartController extends Thread{
 
-    @GetMapping("/**")
-    public  String common(HttpServletRequest request, Model model){
-        return request.getServletPath().replace("/demo/", "");
+    @GetMapping("/index")
+    public  String index(HttpServletRequest request, Model model){
+        return "index";
+    }
+
+    @GetMapping("/meta")
+    public String meta(){
+        return "meta";
     }
 
     @PostMapping("/api/post")

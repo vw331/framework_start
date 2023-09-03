@@ -5,4 +5,6 @@ spring:
   thymeleaf:
     enabled: true
     cache: false
+    prefix: file:src/main/resources/templates/
     encoding: UTF-8
+    mode: HTML5

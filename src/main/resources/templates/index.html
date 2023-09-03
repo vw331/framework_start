@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{_layout.html}">
+  <head>
+    <title>首页</title>
+  </head>
+
+  <body>
+  <th:block layout:fragment="content">
+      <section class="wrapper bg-soft-primary">
+        <div class="container pt-10 pb-15 pt-md-14 pb-md-20 text-center">
+          <div class="row">
+            <div
+              class="col-md-10 col-lg-8 col-xl-8 col-xxl-6 mx-auto mb-13"
+              data-cues="slideInDown"
+              data-group="page-title"
+            >
+              <h1 class="display-1 mb-6">输入关键词搜索数据库</h1>
+              <form action="">
+                <div class="mb-6">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox1"
+                      value="option1"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox1"
+                      >RCT随机对照实验</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox2"
+                      value="option2"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox2"
+                      >Meta分析</label
+                    >
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="输入关键词搜索数据库"
+                  />
+                  <button class="btn btn-primary" type="button">
+                    <i class="uil uil-search"></i> 查询
+                  </button>
+                </div>
+              </form>
+            </div>
+            <!-- /column -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container -->
+      </section>
+
+      <section class="wrapper bg-light">
+        <div class="container py-14 py-md-16">
+          <h2 class="fs-15 text-uppercase text-muted mb-3">Our Clients</h2>
+          <div class="row gx-lg-8 mb-10 gy-5">
+            <div class="col-lg-6">
+              <h3 class="display-5 mb-0">
+                We are trusted by over 300+ clients. Join them by using our
+                services and grow your business.
+              </h3>
+            </div>
+            <!-- /column -->
+            <div class="col-lg-6">
+              <p class="lead mb-0">
+                Donec ullamcorper nulla non metus auctor fringilla. Cum sociis
+                natoque penatibus et magnis dis parturient montes, nascetur
+                ridiculus mus. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Integer posuere erat a ante. Maecenas faucibus
+                mollis interdum. Cras justo odio mollis.
+              </p>
+            </div>
+            <!-- /column -->
+          </div>
+          <!-- /.row -->
+          <div
+            class="row row-cols-2 row-cols-md-3 row-cols-xl-5 gx-lg-6 gy-6 justify-content-center"
+          >
+            <div class="col">
+              <div class="card shadow-lg h-100 align-items-center">
+                <div
+                  class="card-body align-items-center d-flex px-3 py-6 p-md-8"
+                >
+                  <figure class="px-md-3 px-xl-0 px-xxl-3 mb-0">
+                    <img src="/img/brands/z1.png" alt="" />
+                  </figure>
+                </div>
+                <!--/.card-body -->
+              </div>
+              <!--/.card -->
+            </div>
+            <!--/column -->
+            <div class="col">
+              <div class="card shadow-lg h-100 align-items-center">
+                <div
+                  class="card-body align-items-center d-flex px-3 py-6 p-md-8"
+                >
+                  <figure class="px-md-3 px-xl-0 px-xxl-3 mb-0">
+                    <img src="/img/brands/z2.png" alt="" />
+                  </figure>
+                </div>
+                <!--/.card-body -->
+              </div>
+              <!--/.card -->
+            </div>
+            <!--/column -->
+            <div class="col">
+              <div class="card shadow-lg h-100 align-items-center">
+                <div
+                  class="card-body align-items-center d-flex px-3 py-6 p-md-8"
+                >
+                  <figure class="px-md-3 px-xl-0 px-xxl-3 mb-0">
+                    <img src="/img/brands/z3.png" alt="" />
+                  </figure>
+                </div>
+                <!--/.card-body -->
+              </div>
+              <!--/.card -->
+            </div>
+            <!--/column -->
+            <div class="col">
+              <div class="card shadow-lg h-100 align-items-center">
+                <div
+                  class="card-body align-items-center d-flex px-3 py-6 p-md-8"
+                >
+                  <figure class="px-md-3 px-xl-0 px-xxl-3 mb-0">
+                    <img src="/img/brands/z4.png" alt="" />
+                  </figure>
+                </div>
+                <!--/.card-body -->
+              </div>
+              <!--/.card -->
+            </div>
+            <!--/column -->
+            <div class="col">
+              <div class="card shadow-lg h-100 align-items-center">
+                <div
+                  class="card-body align-items-center d-flex px-3 py-6 p-md-8"
+                >
+                  <figure class="px-md-3 px-xl-0 px-xxl-3 mb-0">
+                    <img src="/img/brands/z5.png" alt="" />
+                  </figure>
+                </div>
+                <!--/.card-body -->
+              </div>
+              <!--/.card -->
+            </div>
+            <!--/column -->
+          </div>
+          <!--/.row -->
+        </div>
+        <!-- /.container -->
+      </section>
+      <!-- /section -->
+
+      <!-- /section -->
+      <section
+        class="wrapper image-wrapper bg-auto no-overlay bg-image text-center bg-map"
+        data-image-src="/img/map.png"
+      >
+        <div class="container pt-0 pb-14 pt-md-18 pb-md-18">
+          <div class="row">
+            <div class="col-lg-10 col-xl-9 col-xxl-8 mx-auto">
+              <h3 class="display-4 mb-8 px-lg-12">
+                We are trusted by over 5000+ clients. Join them now and grow
+                your business.
+              </h3>
+            </div>
+            <!-- /column -->
+          </div>
+          <!-- /.row -->
+          <div
+            class="d-flex justify-content-center"
+            data-cues="slideInDown"
+            data-group="join"
+          >
+            <span><a class="btn btn-primary rounded mx-1">Get Started</a></span>
+            <span><a class="btn btn-green rounded mx-1">Free Trial</a></span>
+          </div>
+        </div>
+        <!-- /.container -->
+      </section>
+  </th:block>
+  </body>
+</html>

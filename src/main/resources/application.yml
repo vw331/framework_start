@@ -1,6 +1,8 @@
 
 server:
   port: 8098
+global:
+  datasource: rct=RCT随机对照试验, meta=META分析
 spring:
   thymeleaf:
     enabled: true

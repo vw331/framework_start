@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{_layout.html}">
+<head>
+    <title>RCT证据报告</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+    <div th:replace="rct/meta/fragment.html :: breadcrumb"></div>
+
+    <div th:replace="rct/meta/fragment.html :: process"></div>
+
+    <!-- /section -->
+    <section class="wrapper bg-light">
+        <div class="container py-6 py-md-6">
+            <div class="row gx-lg-8 gx-xl-12">
+                <div class="col-lg-6 offset-3">
+                    <form action="">
+                        <div class="form-floating mb-4">
+                            <input id="titleCh" name="titleCh" type="text" class="form-control" placeholder="中文标题" th:value="${name}">
+                            <label for="titleCh">中文标题</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input id="titleEn" name="titleEn" type="text" class="form-control" placeholder="中文标题">
+                            <label for="titleEn">英文标题</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input id="author" name="author" type="text" class="form-control" placeholder="中文标题">
+                            <label for="author">负责人</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <textarea id="abstractInfo" name="abstractInfo"  class="form-control h-15" placeholder="中文标题"></textarea>
+                            <label for="abstractInfo">
+                                偏倚风险评估描述：
+                            </label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <textarea id="cochraneDesc" name="cochraneDesc" class="form-control h-15" placeholder="中文标题"></textarea>
+                            <label for="cochraneDesc">
+                                偏倚风险评估描述：
+                            </label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <textarea id="consortDesc" name="consortDesc" class="form-control h-15" placeholder="中文标题"></textarea>
+                            <label for="consortDesc">
+                                报告规范质量评价描述：
+                            </label>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <button type="reset" class="btn btn-soft-primary">清空</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</th:block>
+</body>

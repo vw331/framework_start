@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{_layout.html}">
+<head>
+    <title>RCT证据报告</title>
+    <script>
+        $(function(){
+            $(function() {
+                $('#modal-1').on('shown.bs.modal', function () {
+                    $('#table-1').bootstrapTable('resetView')
+                })
+            })
+        })
+    </script>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+    <div th:replace="rct/meta/fragment.html :: breadcrumb"></div>
+
+    <div th:replace="rct/meta/fragment.html :: process"></div>
+
+    <section class="wrapper bg-light">
+        <div class="container pb-14 pb-md-10 pt-6">
+            <div class="row gy-10">
+                <div class="col-lg-9 order-lg-2">
+                    <div class="row align-items-center mb-10 position-relative zindex-1">
+                        <div class="col-md-7 col-xl-6 pe-xl-20">
+                            <h2 class="display-6 mb-1">Meta分析结果</h2>
+                            <p class="mb-0 text-muted">392sub001.csv 连续型变量Meta分析</p>
+                        </div>
+                        <!--/column -->
+                        <div class="col-md-5 col-xl-6 ms-md-auto text-md-end mt-5 mt-md-0">
+                            <a class="btn btn-sm btn-link" onclick="window.open('/meta_analysis_tools?file=487484.xlsx', 'meta_analysis', 'width=1024,channelmode=yes,fullscreen=yes')">调用MetaAnalysis Tools</a>
+                            <a class="btn btn-sm btn-link" th:href="@{'/network_analysis_tools?cvs=4578211.csv'}">调用NetworkAnalysis Tools</a>
+                        </div>
+                        <!--/column -->
+                    </div>
+
+                    <div class="grid grid-view projects-masonry shop mb-13">
+                        <div class="row gx-md-8 gy-10 gy-md-13 isotope">
+                            <div class="project item col-md-12 col-xl-12">
+                                <figure class="rounded mb-6">
+                                    <img class="img-thumbnail" src="/img/meta/Drapery.png" srcset="/img/photos/sh1@2x.jpg 2x" alt="" />
+                                </figure>
+                                <div class="post-header">
+                                    <h2 class="post-title h3 fs-22"><a href="./shop-product.html" class="link-dark">漏斗图</a></h2>
+                                    <p class="price"><span>生成时间: 2023-01-12 15:14:23</span></p>
+                                </div>
+                                <!-- /.post-header -->
+                            </div>
+                            <div class="project item col-md-12 col-xl-12">
+                                <figure class="rounded mb-6">
+                                    <img class="img-thumbnail" src="/img/meta/Boxplot.png" srcset="/img/photos/sh1@2x.jpg 2x" alt="" />
+                                </figure>
+                                <div class="post-header">
+                                    <h2 class="post-title h3 fs-22"><a href="./shop-product.html" class="link-dark">箱形图</a></h2>
+                                    <p class="price"><span>生成时间: 2023-01-12 15:14:23</span></p>
+                                </div>
+                                <!-- /.post-header -->
+                            </div>
+
+                            <div class="project item col-md-12 col-xl-12">
+                                <figure class="rounded mb-6">
+                                    <img class="img-thumbnail" src="/img/meta/Forest.png" srcset="/img/photos/sh1@2x.jpg 2x" alt="" />
+                                </figure>
+                                <div class="post-header">
+                                    <h2 class="post-title h3 fs-22"><a href="./shop-product.html" class="link-dark">森林图</a></h2>
+                                    <p class="price"><span>生成时间: 2023-01-12 15:14:23</span></p>
+                                </div>
+                                <!-- /.post-header -->
+                            </div>
+
+                            <div class="project item col-md-12 col-xl-12">
+                                <figure class="rounded mb-6">
+                                    <img class="img-thumbnail" src="/img/meta/Funnel.png" srcset="/img/photos/sh1@2x.jpg 2x" alt="" />
+                                </figure>
+                                <div class="post-header">
+                                    <h2 class="post-title h3 fs-22"><a href="./shop-product.html" class="link-dark">森林图</a></h2>
+                                    <p class="price"><span>生成时间: 2023-01-12 15:14:23</span></p>
+                                </div>
+                                <!-- /.post-header -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="col-lg-3 sidebar">
+                    <div class="widget mt-1">
+                        <h4 class="widget-title mb-3">数据源</h4>
+                        <ul class="list-unstyled ps-0">
+                            <li class="mb-1">
+                                <a th:href="${#request.requestURI + '?csv=/data/396002.xlsx'}" class="align-items-center active rounded link-body"> 396002.xlxs <span class="fs-sm text-muted ms-1">(5)</span></a>
+                            </li>
+                            <li class="mb-1">
+                                <a th:href="${#request.requestURI + '?csv=392001.xlsx'}" class="align-items-center rounded link-body"> 392001.xlsx <span class="fs-sm text-muted ms-1">(0)</span></a>
+                            </li>
+                            <li class="mb-1">
+                                <a th:href="${#request.requestURI + '?csv=392mesh004.xlsx'}" class="align-items-center rounded link-body"> 392mesh004.xlsx <span class="fs-sm text-muted ms-1">(0)</span></a>
+                            </li>
+                    </div>
+                    <div class="widget mb-4">
+                        <button class="btn btn-soft-primary mb-4" data-bs-toggle="modal" data-bs-target="#modal-1"><i class="uil uil-file-edit-alt"></i>&nbsp;&nbsp 创建二分类变量数据源</button>
+                        <button class="btn btn-soft-green" ><i class="uil uil-file-edit-alt"></i>&nbsp;&nbsp 创建连续型变量数据源</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- start 二分类变量数据源 --->
+    <div class="modal fade" id="modal-1" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header py-4">
+                    <h5 class="modal-title">创建二分类变量数据源</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <table id="table-1" data-toggle="table" data-height="500">
+                        <thead>
+                            <tr>
+                                <th data-field="year" data-width="200">年份</th>
+                                <th data-field="author" data-width="200px">作者</th>
+                                <th data-field="index" data-width="200">指标</th>
+                                <th data-field="group" data-width="100">分组</th>
+                                <th data-field="base" data-width="200">基线Mean</th>
+                                <th data-width="200">基线SD</th>
+                                <th data-width="200">终点Mean</th>
+                                <th data-width="200">终点SD</th>
+                                <th data-width="200">差值Mean</th>
+                                <th data-width="200">差值SD</th>
+                                <th data-width="200">总数量</th>
+                                <th data-width="200">偏倚风险</th>
+                                <th data-width="200">亚组</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex w-100 justify-content-center">
+                        <button class="btn btn-primary">创建</button>
+                    </div>
+                </div>
+                <!--/.modal-body -->
+            </div>
+            <!--/.modal-content -->
+        </div>
+        <!--/.modal-dialog -->
+    </div>
+    <!-- end 二分类变量数据源 -->
+</th:block>
+
+</body>
+</html>

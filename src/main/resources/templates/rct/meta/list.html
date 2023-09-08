@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{_layout.html}">
+<head>
+    <title>RCT证据报告</title>
+    <script>
+        $(function(){
+
+            $("#btn-create-report").click(function(){
+                window.showDirectoryPicker()
+                .then(res => {
+                    console.log(res)
+                })
+            })
+
+        })
+    </script>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="wrapper bg-soft-primary">
+        <div class="container py-3 py-md-5">
+            <nav class="d-inline-block" aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="#">RCT随机对照证据库</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">证据报告</li>
+                </ol>
+            </nav>
+            <!-- /nav -->
+        </div>
+        <!-- /.container -->
+    </section>
+    <selection class="wrapper bg-light">
+        <div class="container pb-14 pb-md-16 pt-12">
+            <div class="row gy-10">
+                <div class="col-lg-9 order-lg-2">
+                    <div class="row align-items-center mb-10 position-relative zindex-1">
+                        <div class="col-md-7 col-xl-8 pe-xl-20">
+                            <h2 class="display-6 mb-1">报告列表</h2>
+                            <p class="mb-0 text-muted">Showing 1–9 of 30 results</p>
+                        </div>
+                        <!--/column -->
+                        <div class="col-md-5 col-xl-4 ms-md-auto text-md-end mt-5 mt-md-0">
+                            <div class="form-select-wrapper">
+                                <select class="form-select">
+                                    <option value="popularity">Sort by popularity</option>
+                                    <option value="rating">Sort by average rating</option>
+                                    <option value="newness">Sort by newness</option>
+                                    <option value="price: low to high">Sort by price: low to high</option>
+                                    <option value="price: high to low">Sort by price: high to low</option>
+                                </select>
+                            </div>
+                            <!--/.form-select-wrapper -->
+                        </div>
+                        <!--/column -->
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">标题</th>
+                                <th scope="col">类型</th>
+                                <th scope="col">创建人</th>
+                                <th scope="col">创建时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><a th:href="@{/rct/meta/病毒性肺炎}">病毒性肺炎</a></th>
+                                <td>RCT证据报告</td>
+                                <td>admin</td>
+                                <td>2023-08-30 13:40</td>
+                            </tr>
+                            <tr>
+                                <th><a th:href="@{/rct/meta/雷公藤多甙治疗糖尿病肾病Ⅳ期的临床观察}">雷公藤多甙治疗糖尿病肾病Ⅳ期的临床观察</a></th>
+                                <td>RCT证据报告</td>
+                                <td>admin</td>
+                                <td>2023-02-19 21:47</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><a th:href="@{/rct/meta/中成药治疗高脂血症的网状META分析}">中成药治疗高脂血症的网状META分析</a></th>
+                                <td>RCT证据报告</td>
+                                <td>admin</td>
+                                <td>2022-11-11 12:38</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    </div>
+                    <nav class="d-flex" aria-label="pagination">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true"><i class="uil uil-arrow-left"></i></span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true"><i class="uil uil-arrow-right"></i></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.pagination -->
+                    </nav>
+                </div>
+                <aside class="col-lg-3 sidebar">
+                    <div class="widget mt-1">
+                        <h4 class="widget-title mb-3">报告类型</h4>
+                        <ul class="list-unstyled ps-0">
+                            <li class="mb-1">
+                                <a href="#" class="link-body">RCT证据报告 <span class="fs-sm text-muted ms-1">(21)</span></a>
+                            </li>
+                            <li class="mb-1">
+                                <a href="#" class="link-body">Meta再评价报告 <span class="fs-sm text-muted ms-1">(10)</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h4 class="widget-title mb-3">论文数量</h4>
+                        <div class="form-check mb-1">
+                            <input class="form-check-input" type="radio" name="price" id="price1" checked="">
+                            <label class="form-check-label" for="price1"> 1-5 篇 </label>
+                        </div>
+                        <!-- /.form-check -->
+                        <div class="form-check mb-1">
+                            <input class="form-check-input" type="radio" name="price" id="price2">
+                            <label class="form-check-label" for="price2"> 6-10 篇 </label>
+                        </div>
+                        <!-- /.form-check -->
+                        <div class="form-check mb-1">
+                            <input class="form-check-input" type="radio" name="price" id="price3">
+                            <label class="form-check-label" for="price3"> 10-20 篇 </label>
+                        </div>
+                        <!-- /.form-check -->
+                        <div class="form-check mb-1">
+                            <input class="form-check-input" type="radio" name="price" id="price4">
+                            <label class="form-check-label" for="price4"> 20-50 篇 </label>
+                        </div>
+
+                        <div class="form-check mb-1">
+                            <input class="form-check-input" type="radio" name="price" id="price5">
+                            <label class="form-check-label" for="price5"> 50 篇以上 </label>
+                        </div>
+                    </div>
+                    <div class="widget mb-4">
+                        <button class="btn btn-primary" id="btn-create-report"><i class="uil uil-file-edit-alt"></i>&nbsp;&nbsp; 创建本地报告</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </selection>
+</th:block>
+
+</body>
+</html>

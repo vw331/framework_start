@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{_layout.html}">
+<head>
+  <title>meta分析</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+      <!-- /header -->
+      <section class="thymeleaf-layout-dialect">
+        <div class="wrapper bg-soft-primary">
+          <div class="container pt-5 pb-6 pt-md-10 pb-md-14 text-center">
+            <div class="row">
+              <div class="col-md-7 col-lg-6 col-xl-5 mx-auto">
+                <div class="mb-3">
+                  <label class="form-label display-5 mb-4"
+                    >上传Meta分析数据源:</label
+                  >
+                  <div class="input-group">
+                    <button class="btn btn-outline-secondary" type="button">上传文件</button>
+                    <input readonly class="form-control" type="text" th:value="${param.csv}" />
+                  </div>
+                </div>
+              </div>
+              <!-- /column -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container -->
+        </div>
+        <!-- /.wrapper -->
+      </section>
+      <!-- /section -->
+      <section class="wrapper bg-light">
+        <div class="container py-10 py-md-10">
+          <div class="row gx-lg-8 gx-xl-12">
+            <aside class="col-lg-4 sidebar">
+              <div class="widget">
+                <form class="">
+                  <div class="mb-4">
+                      <label>数据集</label>
+                      <textarea id="dataset" class="form-control form-control-sm" rows="8" placeholder="数据集">
+study	year	n.e	mean.e	sd.e	n.c	mean.c	sd.c
+杨晓黎	1998	45	-0.54	1.0739	30	-0.55	0.9263
+马建英	1998	40	-2.7	0.656	20	-0.9	0.5556
+任汉阳	2000	56	-1.45	0.8682	20	-0.99	2.2565
+                    </textarea>
+                  </div>
+                  <div class="form-floating mb-4 input-group">
+                    <input id="imgHeight" type="text" class="form-control form-control-sm" placeholder="高度" value="300">
+                    <label for="imgHeight">高度</label>
+                    <span class="input-group-text">px</span>
+                  </div>
+                  <div class="form-floating mb-4 input-group">
+                    <input id="imgWidht" type="text" class="form-control form-control-sm" placeholder="宽度" value="900">
+                    <label for="imgWidht">宽度</label>
+                    <span class="input-group-text">px</span>
+                  </div>
+                  <div class="form-select-wrapper mb-4">
+                      <div class="form-check">
+                          <label class="form-check-label" >
+                          <input class="form-check-input" type="checkbox" value="Forest">
+                              Forest plot 森林图 </label>
+                      </div>
+                      <div class="form-check">
+                          <label class="form-check-label" >
+                              <input class="form-check-input" type="checkbox" value="funnle">
+                              Funnel plot 漏斗图 </label>
+                      </div>
+                      <div class="form-check">
+                          <label class="form-check-label" >
+                              <input class="form-check-input" type="checkbox" value="Boxplot">
+                              Boxplot 箱形图 </label>
+                      </div>
+                      <div class="form-check">
+                          <label class="form-check-label" >
+                              <input class="form-check-input" type="checkbox" value="Drapery">
+                              Drapery plot </label>
+                      </div>
+                  </div>
+                  <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-sm btn-primary"><i class="uil uil-play"></i>&nbsp;&nbsp; 生成</button>
+                  </div>
+                </form>
+                <!-- /.search-form -->
+              </div>
+            </aside>
+            <!-- /column .sidebar -->
+            <div class="col-lg-8">
+              <section class="wrapper pb-8">
+                <div class="card">
+                  <div class="card-body bg-dark p-0 overflow-auto" style="max-height: 350px">
+                    <pre class="language-python fs-8"><code>import PythonMeta as PMA
+
+def showstudies(studies,dtype):
+    #show continuous data
+    if dtype.upper()=="CONT":
+        text = "%-10s %-30s %-30s \n"%("Study ID","Experiment Group","Control Group")
+        text += "%-10s %-10s %-10s %-10s %-10s %-10s %-10s \n"%(" ","m1","sd1","n1","m2","sd2","n2")
+        for i in range(len(studies)):
+            text += "%-10s %-10s %-10s %-10s %-10s  %-10s %-10s \n"%(
+            studies[i][6],        #study ID
+            str(studies[i][0]),   #mean of group1
+            str(studies[i][1]),   #SD of group1
+            str(studies[i][2]),   #total num of group1
+            str(studies[i][3]),   #mean of group2
+            str(studies[i][4]),   #SD of group2
+            str(studies[i][5])    #total num of group2
+            )
+        return text
+
+    #show dichotomous data
+    text = "%-10s %-20s %-20s \n"%("Study ID","Experiment Group","Control Group")
+    text += "%-10s %-10s %-10s %-10s %-10s \n"%(" ","e1","n1","e2","n2")
+    for i in range(len(studies)):
+        text += "%-10s %-10s %-10s %-10s %-10s \n"%(
+        studies[i][4],        #study ID
+        str(studies[i][0]),   #event num of group1
+        str(studies[i][1]),   #total num of group1
+        str(studies[i][2]),   #event num of group2
+        str(studies[i][3])    #total num of group2
+        )
+    return text
+
+def showresults(rults):
+    text = "%-10s %-6s  %-18s %-10s"%("Study ID","n","ES[95% CI]","Weight(%)\n")
+    for i in range(1,len(rults)):
+        text += "%-10s %-6d  %-4.2f[%.2f %.2f]   %6.2f\n"%(   # for each study
+        rults[i][0],     #study ID
+        rults[i][5],     #total num
+        rults[i][1],     #effect size
+        rults[i][3],     #lower of CI
+        rults[i][4],     #higher of CI
+        100*(rults[i][2]/rults[0][2])  #weight
+        )
+    text += "%-10s %-6d  %-4.2f[%.2f %.2f]   %6d\n"%(         # for total effect
+        rults[0][0],     #total effect size name
+        rults[0][5],     #total N (all studies)
+        rults[0][1],     #total effect size
+        rults[0][3],     #total lower CI
+        rults[0][4],     #total higher CI
+        100
+        )
+    text += "%d studies included (N=%d)\n"%(len(rults)-1,rults[0][5])
+    text += "Heterogeneity: Tau\u00b2=%.3f "%(rults[0][12]) if not rults[0][12]==None else "Heterogeneity: "
+    text += "Q(Chisquare)=%.2f(p=%s); I\u00b2=%s\n"%(
+        rults[0][7],     #Q test value
+        rults[0][8],     #p value for Q test
+        str(round(rults[0][9],2))+"%")   #I-square value
+    text += "Overall effect test: z=%.2f, p=%s\n"%(rults[0][10],rults[0][11])  #z-test value and p-value
+
+    return text
+
+def main(stys,settings):
+    d = PMA.Data()  #Load Data class
+    m = PMA.Meta()  #Load Meta class
+    f = PMA.Fig()   #Load Fig class
+
+    #You should always tell the datatype first!!!
+    d.datatype = settings["datatype"]                #set data type, 'CATE' for binary data or 'CONT' for continuous data
+    studies = d.getdata(stys)                        #load data
+    #studies = d.getdata(d.readfile("studies.txt"))  #get data from a data file, see examples of data files
+    print(showstudies(studies,d.datatype))           #show studies
+
+    m.subgroup=d.subgroup                            #set the subgroup
+    m.datatype=d.datatype                            #set data type for meta-analysis calculating
+    m.models = settings["models"]                    #set effect models: 'Fixed' or 'Random'
+    m.algorithm = settings["algorithm"]              #set algorithm, based on datatype and effect size
+    m.effect = settings["effect"]                    #set effect size:RR/OR/RD for binary data; SMD/MD for continuous data
+    results = m.meta(studies)                        #performing the analysis
+    print(m.models + " " + m.algorithm + " " + m.effect)
+    print (showresults(results))                     #show results table
+    f.forest(results).show()                         #show forest plot
+    f.funnel(results).show()                         #show funnel plot
+    print(m.Eggers_test(results))                    #Eggers_test: (Intercept, t-value, p-value, SD  and CI)
+
+if __name__ == '__main__':
+    samp_cate=[  #this array can be stored into a data file by lines, and loaded with d.readfile("filename")
+    "Fang 2015,15,40,24,37",
+    "Gong 2012,10,40,18,35",
+    "Liu 2015,30,50,40,50",
+    "Long 2012,19,40,26,40",
+    "Wang 2003,7,86,15,86",
+    "<subgroup>name=short term",
+    "Chen 2008,20,60,28,60",
+    "Guo 2014,31,51,41,51",
+    "Li 2015,29,61,31,60",
+    "Yang 2006,21,40,31,40",
+    "Zhao 2012,27,40,30,40",
+    "<subgroup>name=medium term",
+    "#<nototal>",
+    " ",
+    "#This is a sample of binary data with subgroup.",
+    "#Syntax: study name, e1, n1, e2, n2",
+    "#e1,n1: events and number of experiment group;",
+    "#e2,n2: events and number of control group.",
+    "#And you can add a line of <nototal> to hide the Overall result."]
+
+    samp_cont=[  #this array can be stored into a data file by lines, and loaded with d.readfile("filename")
+    "Atmaca 2005, 20.9,  6.0,  15,  27.4,  8.5,  14",
+    "Guo 2014,    12.8,  5.2,  51,  11.9,  5.3,  51",
+    "Liu 2010,    23.38, 5.86, 35,  24.32, 5.43, 35",
+    "Wang 2012,   15.67, 8.78, 43,  18.67, 9.87, 43",
+    "Xu 2002,     15.49, 7.16, 50,  21.72, 8.07, 50",
+    "Zhao 2012,   12.8,  5.7,  40,  13.0,  5.2,  40",
+    " ",
+    "#This is a sample of continuous data.",
+    "#Input one study in a line;",
+    "#Syntax: study name, m1, sd1, n1, m2, sd2, n2",
+    "#m1, sd1, n1: mean, SD and number of experiment group;",
+    "#m2, sd2, n2: mean, SD and number of control group."]
+
+    #sample 1: dichotomous data
+    settings={
+    "datatype":"CATE",  #for CATEgorical/count/binary/dichotomous data
+    "models":"Fixed",             #models: Fixed or Random
+    "algorithm":"MH",             #algorithm: MH, Peto or IV
+    "effect":"RR"}                #effect size: RR, OR, RD
+    main(samp_cate,settings)
+
+    #sample 2: continuous data
+    settings={
+    "datatype":"CONT",  #for CONTinuous data
+    "models":"Fixed",             #models: Fixed or Random
+    "algorithm":"IV",             #algorithm: IV
+    "effect":"MD"}                #effect size: MD, SMD
+    main(samp_cont,settings)</code></pre>
+                  </div>
+                  <!--/.card-body -->
+                  <div class="card-footer position-relative py-8">
+                    <div class="progress-list">
+                      <p>正在生成: </p>
+                      <div class="progressbar line blue" data-value="100"></div>
+                    </div>
+                  </div>
+                  <!--/.card-footer -->
+
+                </div>
+                <!--/.card -->
+              </section>
+
+              <div class="blog classic-view">
+                  <article class="post">
+                  <div class="card">
+                    <figure class="card-img-top overlay overlay-1 hover-scale">
+                      <img th:src="@{/img/meta/Forest.png}" alt="Forest plot of fixed model"
+                      />
+                      <figcaption>
+                        <h5 class="from-top mb-0">Read More</h5>
+                      </figcaption>
+                    </figure>
+                    <div class="card-footer">
+                      <ul class="post-meta d-flex mb-0">
+                          <li class="post-comments"><span>森林图</span></li>
+                        <li class="post-date">
+                            <a href="jvascript:void(0)"><i class="uil uil-download-alt"></i> 下载</a>
+                        </li>
+                      </ul>
+                      <!-- /.post-meta -->
+                    </div>
+                    <!-- /.card-footer -->
+                  </div>
+                  <!-- /.card -->
+                </article>
+
+                  <article class="post">
+                      <div class="card">
+                          <figure class="card-img-top overlay overlay-1 hover-scale">
+                              <img th:src="@{/img/meta/Funnel.png}" alt="Forest plot of fixed model"
+                              />
+                              <figcaption>
+                                  <h5 class="from-top mb-0">Read More</h5>
+                              </figcaption>
+                          </figure>
+                          <div class="card-footer">
+                              <ul class="post-meta d-flex mb-0">
+                                  <li class="post-comments"><span>漏斗图</span></li>
+                                  <li class="post-date">
+                                      <a href="jvascript:void(0)"><i class="uil uil-download-alt"></i> 下载</a>
+                                  </li>
+                              </ul>
+                              <!-- /.post-meta -->
+                          </div>
+                          <!-- /.card-footer -->
+                      </div>
+                      <!-- /.card -->
+                  </article>
+
+                  <article class="post">
+                      <div class="card">
+                          <figure class="card-img-top overlay overlay-1 hover-scale">
+                              <img th:src="@{/img/meta/Drapery.png}" alt="Forest plot of fixed model"
+                              />
+                              <figcaption>
+                                  <h5 class="from-top mb-0">Read More</h5>
+                              </figcaption>
+                          </figure>
+                          <div class="card-footer">
+                              <ul class="post-meta d-flex mb-0">
+                                  <li class="post-comments"><span>漏斗图</span></li>
+                                  <li class="post-date">
+                                      <a href="jvascript:void(0)"><i class="uil uil-download-alt"></i> 下载</a>
+                                  </li>
+                              </ul>
+                              <!-- /.post-meta -->
+                          </div>
+                          <!-- /.card-footer -->
+                      </div>
+                      <!-- /.card -->
+                  </article>
+              </div>
+
+              <!-- /.blog -->
+              <nav class="d-flex gap-2" aria-label="pagination">
+                  <button type="button" class="btn btn-soft-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                      导出为PDF
+                  </button>
+                  <button type="button" class="btn btn-soft-green rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                      创建Meta分析报告
+                  </button>
+              </nav>
+              <!-- /nav -->
+            </div>
+            <!-- /column -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container -->
+      </section>
+      <!-- /section -->
+</th:block>
+</body>
+</html>
+

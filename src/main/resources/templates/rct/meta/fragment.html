@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<section class="wrapper bg-soft-primary" th:fragment="breadcrumb">
+    <div class="container py-3 py-md-5">
+        <nav class="d-inline-block" aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#">RCT随机对照证据库</a></li>
+                <li class="breadcrumb-item" aria-current="page">证据报告</li>
+                <li class="breadcrumb-item active" aria-current="page" th:text="${name}"></li>
+            </ol>
+        </nav>
+        <!-- /nav -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<section class="wrapper bg-light" th:fragment="process">
+    <div class="container py-8 py-md-8">
+        <div class="row gx-lg-8 gx-xl-12 gy-6 process-wrapper line">
+            <div class="col-md-6 col-lg-3">
+                <a th:href="@{'/rct/meta/' + ${name} + '/basic'}">
+                    <span class="icon btn btn-circle btn-lg  pe-none mb-4" th:classappend="${ #request.requestURI.endsWith('/basic') ? 'btn-primary' : 'btn-soft-primary'}"><span class="number">01</span></span>
+                    <h4 class="mb-1">基本信息</h4>
+                </a>
+            </div>
+            <!--/column -->
+            <div class="col-md-6 col-lg-3">
+                <a  th:href="@{'/rct/meta/' + ${name} + '/paper'}">
+                    <span class="icon btn btn-circle btn-lg pe-none mb-4" th:classappend="${ #request.requestURI.endsWith('/paper') ? 'btn-primary' : 'btn-soft-primary'}"><span class="number">02</span></span>
+                    <h4 class="mb-1">文献检索</h4>
+                </a>
+            </div>
+            <!--/column -->
+            <div class="col-md-6 col-lg-3">
+                <a th:href="@{'/rct/meta/' + ${name} + '/meta'}">
+                <span class="icon btn btn-circle btn-lg pe-none mb-4" th:classappend="${ #request.requestURI.endsWith('/meta') ? 'btn-primary' : 'btn-soft-primary'}"><span class="number">03</span></span>
+                <h4 class="mb-1">Meta分析</h4>
+                </a>
+            </div>
+
+            <!--/column -->
+            <div class="col-md-6 col-lg-3">
+                <a th:href="@{'/rct/meta/' + ${name} + '/result'}">
+                    <span class="icon btn btn-circle btn-lg pe-none mb-4"
+                          th:classappend="${ #request.requestURI.endsWith('/result') ? 'btn-primary' : 'btn-soft-primary'}"
+                    ><span class="number">04</span></span>
+                    <h4 class="mb-1">生成报告</h4>
+                </a>
+            </div>
+            <!--/column -->
+        </div>
+        <!--/.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+</body>
+
+</html>

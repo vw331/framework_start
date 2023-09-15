@@ -35,139 +35,26 @@ study	year	n.e	mean.e	sd.e	n.c	mean.c	sd.c
 任汉阳	2000	56	-1.45	0.8682	20	-0.99	2.2565
                     </textarea>
                           </div>
-                          <div class="form-floating mb-4 input-group">
-                              <input id="imgHeight" type="text" class="form-control form-control-sm" placeholder="高度" value="300">
-                              <label for="imgHeight">高度</label>
-                              <span class="input-group-text">px</span>
-                          </div>
-                          <div class="form-floating mb-4 input-group">
-                              <input id="imgWidht" type="text" class="form-control form-control-sm" placeholder="宽度" value="900">
-                              <label for="imgWidht">宽度</label>
-                              <span class="input-group-text">px</span>
-                          </div>
-                          <div class="form-select-wrapper mb-4">
-                              <div class="form-check">
-                                  <label class="form-check-label" >
-                                      <input class="form-check-input" type="checkbox" value="Forest">
-                                      Forest plot 森林图 </label>
-                              </div>
-                              <div class="form-check">
-                                  <label class="form-check-label" >
-                                      <input class="form-check-input" type="checkbox" value="funnle">
-                                      Funnel plot 漏斗图 </label>
-                              </div>
-                              <div class="form-check">
-                                  <label class="form-check-label" >
-                                      <input class="form-check-input" type="checkbox" value="Boxplot">
-                                      Boxplot 箱形图 </label>
-                              </div>
-                              <div class="form-check">
-                                  <label class="form-check-label" >
-                                      <input class="form-check-input" type="checkbox" value="Drapery">
-                                      Drapery plot </label>
-                              </div>
-                          </div>
-                          <div class="d-grid gap-2">
-                              <button type="submit" class="btn btn-sm btn-primary"><i class="uil uil-play"></i>&nbsp;&nbsp; 生成</button>
-                          </div>
                       </form>
                   </div>
-                  <!--/.card-body -->
-                  <div class="card-footer position-relative py-8">
-                    <div class="progress-list">
-                      <p>正在生成: </p>
-                      <div class="progressbar line blue" data-value="100"></div>
-                    </div>
-                  </div>
-                  <!--/.card-footer -->
-
                 </div>
                 <!--/.card -->
               </section>
 
               <div class="blog classic-view">
-                  <article class="post">
-                  <div class="card">
-                    <figure class="card-img-top overlay overlay-1 hover-scale">
-                      <img th:src="@{/img/meta/Forest.png}" alt="Forest plot of fixed model"
-                      />
-                      <figcaption>
-                        <h5 class="from-top mb-0">Read More</h5>
-                      </figcaption>
-                    </figure>
-                    <div class="card-footer">
-                      <ul class="post-meta d-flex mb-0">
-                          <li class="post-comments"><span>森林图</span></li>
-                            <li class="post-date">
-                            <a href="jvascript:void(0)"><i class="uil uil-download-alt"></i> 下载</a>
-                            </li>
-                          <li class="post-comments"><a href="#"><i class="uil uil-image-edit"></i><span> 修改尺寸: 500px * 250px</span></a></li>
-                      </ul>
-                      <!-- /.post-meta -->
-                    </div>
-                    <!-- /.card-footer -->
-                  </div>
-                  <!-- /.card -->
-                </article>
-
-                  <article class="post">
-                      <div class="card">
-                          <figure class="card-img-top overlay overlay-1 hover-scale">
-                              <img th:src="@{/img/meta/Funnel.png}" alt="Forest plot of fixed model"
-                              />
-                              <figcaption>
-                                  <h5 class="from-top mb-0">Read More</h5>
-                              </figcaption>
-                          </figure>
-                          <div class="card-footer">
-                              <ul class="post-meta d-flex mb-0">
-                                  <li class="post-comments"><span>漏斗图</span></li>
-                                  <li class="post-date">
-                                      <a href="jvascript:void(0)"><i class="uil uil-download-alt"></i> 下载</a>
-                                  </li>
-                                  <li class="post-comments"><a href="#"><i class="uil uil-image-edit"></i><span> 修改尺寸: 500px * 250px</span></a></li>
-                              </ul>
-                              <!-- /.post-meta -->
-                          </div>
-                          <!-- /.card-footer -->
-                      </div>
-                      <!-- /.card -->
+                  <article class="post" id="forest">
                   </article>
 
-                  <article class="post">
-                      <div class="card">
-                          <figure class="card-img-top overlay overlay-1 hover-scale">
-                              <img th:src="@{/img/meta/Drapery.png}" alt="Forest plot of fixed model"
-                              />
-                              <figcaption>
-                                  <h5 class="from-top mb-0">Read More</h5>
-                              </figcaption>
-                          </figure>
-                          <div class="card-footer">
-                              <ul class="post-meta d-flex mb-0">
-                                  <li class="post-comments"><span>漏斗图</span></li>
-                                  <li class="post-date">
-                                      <a href="jvascript:void(0)"><i class="uil uil-download-alt"></i> 下载</a>
-                                  </li>
-                                  <li class="post-comments"><a href="#"><i class="uil uil-image-edit"></i><span> 修改尺寸: 500px * 250px</span></a></li>
-                              </ul>
-                              <!-- /.post-meta -->
-                          </div>
-                          <!-- /.card-footer -->
-                      </div>
-                      <!-- /.card -->
+                  <article class="post" id="boxplot">
                   </article>
+
+                  <article class="post" id="funnel">
+                  </article>
+
+                  <article class="post" id="drapery"></article>
+
               </div>
 
-              <!-- /.blog -->
-              <nav class="d-flex gap-2" aria-label="pagination">
-                  <button type="button" class="btn btn-soft-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
-                      导出为PDF
-                  </button>
-                  <button type="button" class="btn btn-soft-green rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
-                      创建Meta分析报告
-                  </button>
-              </nav>
               <!-- /nav -->
             </div>
             <!-- /column -->
@@ -177,18 +64,37 @@ study	year	n.e	mean.e	sd.e	n.c	mean.c	sd.c
         <!-- /.container -->
       </section>
 </div>
-<div class="progress-wrap">
-    <svg
-            class="progress-circle svg-content"
-            width="100%"
-            height="100%"
-            viewBox="-1 -1 102 102"
-    >
-        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-    </svg>
+<div class="container-fluid bg-white border-top fixed-bottom">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3">
+        <ul class="nav col-12 justify-content-center list-unstyled gap-4 d-flex">
+            <li>
+                <button type="button" class="btn btn-soft-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                    导出结果
+                </button>
+            </li>
+            <li >
+                <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                    创建Meta分析报告
+                </button>
+            </li>
+        </ul>
+    </footer>
 </div>
 <script th:src="@{/js/plugins.js}"></script>
 <script th:src="@{/js/theme.js}"></script>
+<script th:src="@{/js/meta_analysis.js}"></script>
+<script>
+    $(function(){
+
+        new MetaAnalysis('#forest', { type: "forest" })
+
+        new MetaAnalysis('#boxplot', { type: "boxplot" })
+
+        new MetaAnalysis("#funnel", { type: "funnel"})
+
+        new MetaAnalysis("#drapery", { type: "drapery"})
+    })
+</script>
 </body>
 
 </html>

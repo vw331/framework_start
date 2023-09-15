@@ -4,13 +4,20 @@
       layout:decorator="~{_layout.html}">
 <head>
     <title>RCT证据报告</title>
+    <script>
+        $(document)
+            .on('click', '[data-generate]', function(e){
+                const { dataset } = e.target
+                window.open(`/rct/report/${dataset.generate}/generate?sourceId=123456`)
+            })
+    </script>
 </head>
 
 <body>
 <th:block layout:fragment="content">
-    <div th:replace="rct/meta/fragment.html :: breadcrumb"></div>
+    <div th:replace="rct/report/fragment.html :: breadcrumb"></div>
 
-    <div th:replace="rct/meta/fragment.html :: process"></div>
+    <div th:replace="rct/report/fragment.html :: process"></div>
     <!-- /section -->
     <section class="wrapper bg-light">
         <div class="container py-6 py-md-6">
@@ -23,7 +30,14 @@
                     </div>
                 </div>
                 <aisde class="col-lg-3 sidebar mt-8 mt-lg-6">
-                    <form action="">
+                    <div onclick="function(e){ return false}">
+                        <div class="form-select-wrapper mb-4">
+                            <select class="form-select" placeholder="请选择一份报告">
+                                <option value="1">396002.xlsx Meta分析</option>
+                                <option value="2">396001.xlsx Meta分析</option>
+                                <option value="3">392mesh004.xlsx Meta分析</option>
+                            </select>
+                        </div>
                         <div class="form-floating mb-4">
                             <input id="textInputExample" type="text" class="form-control" placeholder="报告标题" th:value="${name}">
                             <label for="textInputExample">报告标题</label>
@@ -36,8 +50,11 @@
                                 <option value="3">模板3</option>
                             </select>
                         </div>
-                        <button class="btn btn-soft-primary w-100">生成报告</button>
-                    </form>
+                        <button class="btn btn-soft-primary w-100 mb-4"
+                                th:attr="data-generate=${name}"
+                        >预览报告</button>
+                        <button class="btn btn-primary w-100">保存报告</button>
+                    </div>
                 </aisde>
             </div>
 

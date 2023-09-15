@@ -7,12 +7,15 @@ $(function(){
         }
 
         listWrap = $("#article-list")
+        paginationWrap = $("#pagination-wrap")
 
         async load() {
             this.#setLoading();
-            const data = await this.#getData()
-            const html = data.map(this.#renderItem).join(' ')
+            const { records, ...rest } = await this.#getData()
+            const html = records.map(this.#renderItem).join(' ')
+            const pagination = this.#renderPagination(rest)
             this.listWrap.empty().html(html);
+            this.paginationWrap.empty().append(pagination);
         }
 
         async #getData() {
@@ -65,6 +68,40 @@ $(function(){
             `
         }
 
+        #renderPagination({ pages, current, total }) {
+            const range = [1,2, current -2, current -1, current, current +1, current +2, pages-2, pages-1, pages];
+            const pageSet = new Set();
+            if(current > 1){
+                pageSet.add("上一页")
+            }
+            let index = 1;
+            while (index <= pages) {
+                if(range.includes(index)){
+                    pageSet.add(index)
+                }else if(index < current) {
+                    pageSet.add("<<<")
+                }else {
+                    pageSet.add(">>>")
+                }
+                index++
+            }
+            if(current < pages){
+                pageSet.add("下一页")
+            }
+            const liList = Array.from(pageSet).map(index => {
+                return `
+                    <li class="page-item ${index === current ? 'active': ''}">
+                        <a class="page-link" href="javascript:void(0)" data-page="${index}">
+                            ${index}
+                        </a>
+                      </li>
+                `
+            }).join('')
+            const $ul = document.createElement('ul')
+            $ul.className = 'pagination'
+            $ul.innerHTML = liList;
+            return $ul;
+        }
     }
 
     new Search();

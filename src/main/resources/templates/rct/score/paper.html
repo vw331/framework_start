@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{_layout.html}">
+<head>
+    <title>证据评分</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+    <section class="wrapper bg-soft-primary">
+        <div class="container py-3 py-md-5">
+            <nav class="d-inline-block" aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="#">RCT随机对照证据库</a></li>
+                    <li class="breadcrumb-item" aria-current="page">文献评分</li>
+                </ol>
+            </nav>
+            <!-- /nav -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <div class="wrapper bg-light">
+        <div class="container py-7 py-md-8">
+            <div class="row align-items-center mb-10 position-relative zindex-1">
+                <table class="table table-bordered" data-toggle="table" data-height="500" data-url="/data/score_paper.json">
+                    <thead>
+                        <th data-field="code">编码</th>
+                        <th data-field="type">类型</th>
+                        <th data-field="title">标题</th>
+                        <th data-field="keyword">关键词</th>
+                        <th data-field="disease">病症</th>
+                        <th data-field="author">作者</th>
+                        <th data-field="mazine">期刊</th>
+                        <th data-field="status">状态</th>
+                        <th data-field="score">评分</th>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+</th:block>
+</body>
+</html>

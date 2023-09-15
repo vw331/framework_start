@@ -22,21 +22,21 @@
     <div class="container py-8 py-md-8">
         <div class="row gx-lg-8 gx-xl-12 gy-6 process-wrapper line">
             <div class="col-md-6 col-lg-3">
-                <a th:href="@{'/rct/meta/' + ${name} + '/basic'}">
+                <a th:href="@{'/rct/report/' + ${name} + '/basic'}">
                     <span class="icon btn btn-circle btn-lg  pe-none mb-4" th:classappend="${ #request.requestURI.endsWith('/basic') ? 'btn-primary' : 'btn-soft-primary'}"><span class="number">01</span></span>
                     <h4 class="mb-1">基本信息</h4>
                 </a>
             </div>
             <!--/column -->
             <div class="col-md-6 col-lg-3">
-                <a  th:href="@{'/rct/meta/' + ${name} + '/paper'}">
+                <a  th:href="@{'/rct/report/' + ${name} + '/paper'}">
                     <span class="icon btn btn-circle btn-lg pe-none mb-4" th:classappend="${ #request.requestURI.endsWith('/paper') ? 'btn-primary' : 'btn-soft-primary'}"><span class="number">02</span></span>
                     <h4 class="mb-1">文献检索</h4>
                 </a>
             </div>
             <!--/column -->
             <div class="col-md-6 col-lg-3">
-                <a th:href="@{'/rct/meta/' + ${name} + '/meta'}">
+                <a th:href="@{'/rct/report/' + ${name} + '/meta'}">
                 <span class="icon btn btn-circle btn-lg pe-none mb-4" th:classappend="${ #request.requestURI.endsWith('/meta') ? 'btn-primary' : 'btn-soft-primary'}"><span class="number">03</span></span>
                 <h4 class="mb-1">Meta分析</h4>
                 </a>
@@ -44,7 +44,7 @@
 
             <!--/column -->
             <div class="col-md-6 col-lg-3">
-                <a th:href="@{'/rct/meta/' + ${name} + '/result'}">
+                <a th:href="@{'/rct/report/' + ${name} + '/result'}">
                     <span class="icon btn btn-circle btn-lg pe-none mb-4"
                           th:classappend="${ #request.requestURI.endsWith('/result') ? 'btn-primary' : 'btn-soft-primary'}"
                     ><span class="number">04</span></span>

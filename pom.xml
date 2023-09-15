@@ -44,6 +44,11 @@
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 			<version>2.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.jhonnymertz</groupId>
+			<artifactId>java-wkhtmltopdf-wrapper</artifactId>
+			<version>1.1.13-RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>

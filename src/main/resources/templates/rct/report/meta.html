@@ -17,9 +17,9 @@
 
 <body>
 <th:block layout:fragment="content">
-    <div th:replace="rct/meta/fragment.html :: breadcrumb"></div>
+    <div th:replace="rct/report/fragment.html :: breadcrumb"></div>
 
-    <div th:replace="rct/meta/fragment.html :: process"></div>
+    <div th:replace="rct/report/fragment.html :: process"></div>
 
     <section class="wrapper bg-light">
         <div class="container pb-14 pb-md-10 pt-6">
@@ -32,7 +32,8 @@
                         </div>
                         <!--/column -->
                         <div class="col-md-5 col-xl-6 ms-md-auto text-md-end mt-5 mt-md-0">
-                            <a class="btn btn-sm btn-link" onclick="window.open('/meta_analysis_tools?file=487484.xlsx', 'meta_analysis', 'width=1024,channelmode=yes,fullscreen=yes')">调用MetaAnalysis Tools</a>
+                            <a class="btn btn-sm btn-link"
+                               onclick="window.open('/meta_analysis_tools?file=487484.xlsx', 'meta_analysis', 'width=1024,channelmode=yes,fullscreen=yes')">调用MetaAnalysis Tools</a>
                             <a class="btn btn-sm btn-link" th:href="@{'/network_analysis_tools?cvs=4578211.csv'}">调用NetworkAnalysis Tools</a>
                         </div>
                         <!--/column -->

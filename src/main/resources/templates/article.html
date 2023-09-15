@@ -8,6 +8,16 @@
         table {
             caption-side: top
         }
+        @media print {
+            header, footer, aside, .navbar, .btn {
+                display: none;
+                visibility: hidden;
+            }
+            table {
+                font-size: larger;
+                page-break-inside: avoid;
+            }
+        }
     </style>
 </head>
 
@@ -21,14 +31,14 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-6 justify-content-end">
-                                    <button class="btn btn-sm btn-white "><i class="uil uil-print"></i>&nbsp; 导出为PDF</button>
+                                    <a class="btn btn-sm btn-white" th:href="@{'/pdf?url=' + ${#request.getRequestURL()} }"><i class="uil uil-print"></i>&nbsp; 导出为PDF</a>
                                 </div>
                                 <div class="classic-view">
                                     <article class="post">
                                         <div class="post-content mb-5">
                                             <h4 class="h3 mb-10">松龄血脉康胶囊治疗更年期综合征患者73例临床分析</h4>
                                             <table class="table table-bordered table-sm fs-sm" id="document-basic">
-                                                <caption>基本信息</caption>
+                                                <caption><h6>基本信息</h6></caption>
                                                 <colgroup>
                                                     <col width="200" class="bg-gray" />
                                                     <col />
@@ -97,7 +107,7 @@
                                             </table>
 
                                             <table class="table table-bordered table-sm fs-sm" id="document-patients">
-                                                <caption>参与者</caption>
+                                                <caption><h6>参与者</h6></caption>
                                                 <colgroup>
                                                     <col width="200" class="bg-gray" />
                                                     <col />
@@ -147,7 +157,7 @@
                                             </table>
 
                                             <table class="table table-bordered table-sm fs-sm" id="document-group-1">
-                                                <caption>分组-1</caption>
+                                                <caption><h6>分组-1</h6></caption>
                                                 <colgroup>
                                                     <col width="200" class="bg-gray" />
                                                     <col />
@@ -181,7 +191,7 @@
                                             </table>
 
                                             <table class="table table-bordered table-sm fs-sm" id="document-group-2">
-                                                <caption>分组-2</caption>
+                                                <caption><h6>分组-2</h6></caption>
                                                 <colgroup>
                                                     <col width="200" class="bg-gray" />
                                                     <col />
@@ -215,7 +225,7 @@
                                             </table>
 
                                             <table class="table table-bordered table-sm fs-sm" id="document-intervention-1">
-                                                <caption>干预措施-碳离子放疗</caption>
+                                                <caption><h6>干预措施-碳离子放疗</h6></caption>
                                                 <colgroup>
                                                     <col width="200" class="bg-gray" />
                                                     <col />
@@ -248,7 +258,7 @@
                                                 </tbody>
                                             </table>
                                             <table class="table table-bordered table-sm fs-sm" id="document-intervention-2">
-                                                <caption>干预措施-碳离子放疗</caption>
+                                                <caption><h6>干预措施-碳离子放疗</h6></caption>
                                                 <colgroup>
                                                     <col width="200" class="bg-gray" />
                                                     <col />
@@ -282,7 +292,7 @@
                                             </table>
 
                                             <table class="table table-bordered table-sm fs-sm" id="result-efficacyIndicatorVar">
-                                                <caption> 有效性评价指标声明</caption>
+                                                <caption><h6>有效性评价指标声明</h6></caption>
                                                 <colgroup>
                                                     <col width="200" class="bg-gray" />
                                                     <col />

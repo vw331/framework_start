@@ -8,61 +8,46 @@
 
   <body>
   <th:block layout:fragment="content">
-      <section class="wrapper bg-soft-primary" style="min-height: calc(100vh - 470px)">
-        <div class="container pt-10 pb-15 pt-md-12 pb-md-12 text-center">
+      <section class="wrapper bg-soft-primary">
+        <div class="container pt-10 pb-15 pt-md-12 pb-md-12">
           <div class="row">
-            <div
-              class="col-md-10 col-lg-8 col-xl-8 col-xxl-6 mx-auto mb-13"
-              data-cues="slideInDown"
-              data-group="page-title"
-            >
-              <h1 class="display-1 mb-6">强大、高效的中医药证据库</h1>
-              <form id="search-form">
-                <div class="mb-6">
-                  <div class="form-check form-check-inline">
-                    <input
-                      name="databases"
-                      class="form-check-input"
-                      type="checkbox"
-                      id="inlineCheckbox1"
-                      value="rct"
-                      checked
-                    />
-                    <label class="form-check-label" for="inlineCheckbox1"
-                      >RCT随机对照实验</label
-                    >
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input
-                      name="databases"
-                      class="form-check-input"
-                      type="checkbox"
-                      id="inlineCheckbox2"
-                      value="meta"
-                      checked
-                    />
-                    <label class="form-check-label" for="inlineCheckbox2"
-                      >Meta分析</label
-                    >
-                  </div>
-                </div>
-                <div class="input-group mb-3">
-                  <input
-                    name="keyword"
-                    type="text"
-                    class="form-control"
-                    required
-                    value="coivd 19"
-                    placeholder="输入关键词搜索数据库"
-                    autofocus
-                  />
-                  <button class="btn btn-primary" type="submit">
-                    <i class="uil uil-search"></i> 查询
-                  </button>
-                </div>
-              </form>
+            <div class="col-4 col-sm-12 col-md-6 col-lg-4">
+              <div class="form-floating mb-4">
+                <select class="form-select">
+                  <option value="all" selected>所有</option>
+                  <option value="RCT">随机对照试验</option>
+                  <option value="meta">Meta分析</option>
+                </select>
+                <label>来源</label>
+              </div>
             </div>
-            <!-- /column -->
+            <div class="col-4 col-sm-12 col-md-6 col-lg-4">
+              <div class="form-floating mb-4">
+                <input type="text" class="form-control" name="population" placeholder="患者/问题">
+                <label>患者/问题</label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-12 col-md-6 col-lg-4">
+              <div class="form-floating mb-4">
+                <input name="Intervention" type="text" class="form-control" placeholder="干预措施">
+                <label>干预措施</label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-12 col-md-6 col-lg-4">
+              <div class="form-floating mb-4">
+                <input name="Comparison" type="text" class="form-control" placeholder="比较">
+                <label>比较</label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-12 col-md-6 col-lg-4">
+              <div class="form-floating  mb-4">
+                <input name="Outcomes" type="text" class="form-control" placeholder="结果"/>
+                <label>结果</label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-12 col-md-6 col-lg-4">
+              <button class="btn btn-primary  mb-4">查询</button>
+            </div>
           </div>
           <!-- /.row -->
         </div>

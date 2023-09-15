@@ -1,12 +1,19 @@
 package com.example.demo.base.controller.view;
 
+import com.github.jhonnymertz.wkhtmltopdf.wrapper.Pdf;
+import com.github.jhonnymertz.wkhtmltopdf.wrapper.params.Param;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +22,9 @@ import java.util.Map;
 @Controller
 @RequestMapping()
 public class IndexController extends Thread{
+
+    @Value("${wkhtmltopdfCommandpath}")
+    private String wkhtmltopdfpath;
 
     @GetMapping("/index")
     public  String index(HttpServletRequest request, Model model){
@@ -58,6 +68,27 @@ public class IndexController extends Thread{
     @GetMapping("/network_analysis_tools")
     public String networkAnalysis(){
         return "network_analysis_tools";
+    }
+
+    @GetMapping("/pdf")
+    public ResponseEntity<StreamingResponseBody> createPdf(@RequestParam(value = "url", required = true) String url){
+        Pdf pdf = new Pdf();
+        pdf.addParam(new Param("--encoding", "utf-8"));
+        pdf.addParam(new Param("--print-media-type"));
+        pdf.addPageFromUrl(url);
+
+        StreamingResponseBody responseBody = response -> {
+            try {
+                byte[] buffer = pdf.getPDF();
+                response.write(buffer);
+            }catch (IOException | InterruptedException e){
+                e.printStackTrace();
+            }
+        };
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(responseBody);
     }
 
     @PostMapping("/api/post")

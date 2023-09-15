@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文档</title>
+    <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        header {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: right;
+            background: #ffffff;
+            border-bottom: 1px solid #dddddd;
+            padding: 5px;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            document.querySelector('[data-button="export_docx"]')?.addEventListener('click', function() {
+
+                var htmlContent = window.frames.report.document.documentElement.outerHTML;
+                var converted = htmlDocx.asBlob(htmlContent, {
+                    pageWidth: 595.276,
+                    pageHeight: 841.890,
+                    margin: { top: 56.6929, right: 56.6929, bottom: 56.6929, left: 56.6929 }
+                });
+                var blobUrl = window.URL.createObjectURL(converted);
+                var a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = 'demo.docx';
+                a.click();
+                window.URL.revokeObjectURL(blobUrl);
+            });
+
+            document.querySelector('[data-button="export_pdf"]')?.addEventListener('click', function() {
+                window.open(`/pdf?url=${ encodeURIComponent(window.frames.report.location.href) }`)
+            })
+
+            document.querySelector('[data-button="button-print"]')?.addEventListener('click', function() {
+                window.frames.report.print()
+            })
+
+            document.querySelector('[name="allowEdit"]').addEventListener('change', function(e) {
+                const { checked } = e.target;
+                const reportDocument = window.frames.report.document;
+                reportDocument.querySelectorAll('p, h1, h2, h3, h4, h5, h6').forEach(el => {
+                    el.setAttribute("contenteditable", checked)
+                })
+            })
+
+            const style = document.createElement('style');
+            style.innerHTML = `
+                [contenteditable="true"] {
+                    background: aqua
+                }
+            `
+            window.frames.report.document.querySelector('head').append(style);
+        }
+    </script>
+</head>
+<body>
+<header>
+    <div>
+        <label><input type="checkbox" name="allowEdit"> <small>启用编辑</small></label> &nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background: #0f3d81;color: #ffffff">保存</button>
+    </div>
+    <div>
+        <button type="button" data-button="export_pdf">导出为.pdf</button>
+        <button type="button" data-button="export_docx">导出为.docx</button>
+        <button type="button" data-button="button-print">打印</button>
+    </div>
+</header>
+<section style="height: 100vh;">
+    <iframe name="report" th:src="${url}" frameborder="0" style="width: 100%; height: 100%"></iframe>
+</section>
+</body>
+</html>

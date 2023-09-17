@@ -1,5 +1,6 @@
 package com.example.demo.base.controller.view;
 
+import com.example.demo.base.service.ElasticService;
 import com.github.jhonnymertz.wkhtmltopdf.wrapper.Pdf;
 import com.github.jhonnymertz.wkhtmltopdf.wrapper.params.Param;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +24,9 @@ import java.util.Map;
 @Controller
 @RequestMapping()
 public class IndexController extends Thread{
+
+    @Resource
+    ElasticService esService;
 
     @Value("${wkhtmltopdfCommandpath}")
     private String wkhtmltopdfpath;
@@ -56,7 +61,9 @@ public class IndexController extends Thread{
 
     @GetMapping("/article/{id}")
     public ModelAndView article(@PathVariable("id") String id) {
+        Object article = esService.getDoc("sunhao_guidezh_document_paper_zh", "1");
         ModelAndView mv = new ModelAndView("article");
+        mv.addObject("article", article);
         return mv;
     }
 

@@ -11,16 +11,29 @@ $(function(){
 
         async load() {
             this.#setLoading();
-            const { records, ...rest } = await this.#getData()
+            const { hits } = await this.#getData()
+            const records = hits.hits;
             const html = records.map(this.#renderItem).join(' ')
-            const pagination = this.#renderPagination(rest)
+            //const pagination = this.#renderPagination(rest)
             this.listWrap.empty().html(html);
-            this.paginationWrap.empty().append(pagination);
+            //this.paginationWrap.empty().append(pagination);
         }
 
         async #getData() {
             await new Promise(resolve => setTimeout(resolve, 2000));
-            return await $.get('/data/records.json')
+            return await $.ajax({
+                url: '/es/sunhao_guidezh_document_paper_zh/_search',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: JSON.stringify({
+                    "query": {
+                        "match": {
+                            "document.basic.subjectWord": "痴呆"
+                        }
+                    }
+                })
+            })
         }
 
         #setLoading() {
